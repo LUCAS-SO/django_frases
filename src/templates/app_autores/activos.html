@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Autores Activos{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">Autores Activos</h2>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for autor in autores %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <!-- Imagen del autor: se usa placeholder; si cuentas con imagenes, reemplázala con el tag static y el slug correspondiente -->
+        <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Imagen del autor">
+
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ autor.nombre }}</h5>
+          <p class="card-text">
+            <strong>Nacionalidad:</strong> {{ autor.get_nacionalidad_display }}<br>
+            <strong>Nacido:</strong> {{ autor.fecha_nacimiento }}<br>
+            <strong>Fallecido:</strong> {{ autor.fecha_fallecimiento|default:"-" }}<br>
+            <strong>Activo:</strong>
+            {% if autor.activo %}
+              <span class="badge bg-success">Sí</span>
+            {% else %}
+              <span class="badge bg-danger">No</span>
+            {% endif %}<br>
+            <strong>Creado:</strong> {{ autor.creado|date:"d/m/Y H:i" }}<br>
+            <strong>Modificado:</strong> {{ autor.modificado|date:"d/m/Y H:i" }}
+          </p>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between">
+          <a href="{% url 'app_autores:detalle_autor' autor.id %}" class="btn btn-primary btn-sm">Ver Detalles</a>
+          <a href="{% url 'app_autores:frases_autor' autor.id %}" class="btn btn-outline-secondary btn-sm">Ver Frases</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <!-- Se muestra un mensaje si no hay autores activos -->
+    <div class="col">
+      <div class="alert alert-info text-center" role="alert">
+        No hay autores activos.
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-4 text-center">
+    <a href="{% url 'app_autores:base' %}" class="btn btn-secondary">← Volver al inicio</a>
+  </div>
+</div>
+{% endblock %}

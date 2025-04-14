@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Frases de {{ autor.nombre }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-center">Frases de {{ autor.nombre }}</h2>
+
+<!-- Información del autor: imagen, nacionalidad y botón para agregar frase -->
+<div class="text-center mb-4">
+    <!-- Si dispones de la imagen real del autor, reemplaza el placeholder usando el tag static -->
+    <img src="{% static 'img/autores/' %}{{ autor.slug }}.png"
+                             alt="Foto de {{ autor.nombre }}"
+                             class="img-fluid rounded-circle shadow"
+                             style="width: 150px; height: 150px; object-fit: cover;">
+    <p class="mt-2"><strong>Nacionalidad:</strong> {{ autor.get_nacionalidad_display }}</p>
+    <a href="{% url 'app_autores:crear_frase_autor' autor.id %}" class="btn btn-success mt-2">
+        Agregar Frase
+    </a>
+</div>
+
+<!-- Listado de frases del autor -->
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for frase in frases %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <p class="card-text">"{{ frase.texto }}"</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <div class="alert alert-info text-center">
+            Este autor no tiene frases aún.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

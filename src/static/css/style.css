@@ -1,0 +1,39 @@
+/* Fuente y tipografía */
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+/* Navbar */
+.navbar-brand, .nav-link {
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #0056b3;
+}
+
+/* Botones: Estilo minimalista */
+.btn {
+    border-radius: 0.2rem;
+}
+
+/* Ajuste de títulos y encabezados */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+/* Otros ajustes generales */
+.container {
+    max-width: 960px;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    border-radius: 0.2rem;
+}
+.btn-primary:hover {
+    background-color: #004494;
+    border-color: #004494;
+}

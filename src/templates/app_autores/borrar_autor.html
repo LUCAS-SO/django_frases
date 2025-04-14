@@ -1,0 +1,32 @@
+{% extends "app_autores/detalle.html" %}
+
+{% block confirmacion %}
+<!-- Modal de confirmación -->
+<div class="modal fade show" style="display: block;" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-modal="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- Encabezado del Modal -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmar eliminación</h5>
+        <!-- Enlace de cierre (Cancelar) -->
+        <a href="{% url 'app_autores:detalle_autor' object.id %}" class="btn-close" aria-label="Close"></a>
+      </div>
+      <!-- Cuerpo del Modal -->
+      <div class="modal-body">
+        <p>¿Desea borrar el autor "<strong>{{ object.nombre }}</strong>"?</p>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <!-- Pie del Modal con botones -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+            <a href="{% url 'app_autores:detalle_autor' object.id %}" class="btn btn-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fondo oscuro para el modal -->
+<div class="modal-backdrop fade show"></div>
+{% endblock confirmacion %}
