@@ -7,9 +7,11 @@
 <h2 class="mb-4 text-center">Frases</h2>
 
 <div class="d-flex justify-content-center mt-2 py-4">
-    <a href="{% url 'app_autores:crear_frase' %}" class="btn btn-success">
-        Agregar Frase
-    </a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'app_autores:crear_frase' %}" class="btn btn-success">
+            Agregar Frase
+        </a>
+    {% endif %}
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -18,9 +20,9 @@
         <div class="card h-100 shadow text-center">
             <!-- Imagen del autor -->
             <img src="{% static 'img/autores/' %}{{ frase.autor.slug }}.png"
-     alt="Foto de {{ frase.autor.nombre }}"
-     class="img-fluid rounded-circle shadow mx-auto d-block"
-     style="width: 80px; height: 80px; object-fit: cover;">
+                 alt="Foto de {{ frase.autor.nombre }}"
+                 class="img-fluid rounded-circle shadow mx-auto d-block"
+                 style="width: 80px; height: 80px; object-fit: cover;">
 
             <div class="card-body">
                 <h5 class="card-title">{{ frase.autor.nombre }}</h5>
@@ -61,3 +63,4 @@
     {% endfor %}
 </div>
 {% endblock %}
+

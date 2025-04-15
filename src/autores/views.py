@@ -4,6 +4,7 @@ from django.core import serializers
 from django.urls import reverse, reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_not_required
 from .models import Autor, Frase
 import random
 
@@ -58,6 +59,7 @@ def cambiar_estado_autor(request, autor_id):
     autor.save()
     return HttpResponseRedirect(reverse('app_autores:autores'))
 
+@login_not_required
 def frases_aleatorias(request):
     frases = list(Frase.objects.select_related('autor'))
     random.shuffle(frases)  # Mezclamos las frases
