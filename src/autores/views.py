@@ -12,12 +12,14 @@ import random
 
 # Create your views here.
 
+@login_not_required
 def inicio(request):
     return render(request, 'base.html')
 
 def presentacion(request):
     return render(request, 'presentacion.html')
 
+@login_not_required
 def autores(request):
     autores = Autor.objects.all()
     for autor in autores:
@@ -129,8 +131,11 @@ class FraseAutorCreateView(CreateView):
 class AutorUpdateView(UpdateView):
     model = Autor
     fields = '__all__'
-    success_url = reverse_lazy('app_autores:detalle_autor')
     template_name = 'crear.html'
+    
+    # Regresa al detalle
+    def get_success_url(self):
+        return reverse_lazy('app_autores:detalle_autor', kwargs={'autor_id': self.object.id})
 
 
 class AutorDeleteView(DeleteView):

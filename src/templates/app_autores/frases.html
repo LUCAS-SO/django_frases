@@ -4,7 +4,7 @@
 {% block title %}Frases Iconicas{% endblock %}
 
 {% block content %}
-<h2 class="mb-4 text-center">Frases</h2>
+<h2 class="text-center">Frases</h2>
 
 <div class="d-flex justify-content-center mt-2 py-4">
     {% if user.is_authenticated %}
@@ -21,7 +21,7 @@
             <!-- Imagen del autor -->
             <img src="{% static 'img/autores/' %}{{ frase.autor.slug }}.png"
                  alt="Foto de {{ frase.autor.nombre }}"
-                 class="img-fluid rounded-circle shadow mx-auto d-block"
+                 class="img-fluid rounded-circle shadow mx-auto d-block m-3"
                  style="width: 80px; height: 80px; object-fit: cover;">
 
             <div class="card-body">

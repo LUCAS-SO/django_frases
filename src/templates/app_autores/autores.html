@@ -4,62 +4,80 @@
 {% block title %}Autores{% endblock %}
 
 {% block content %}
-<h2 class="mb-4 text-center">Listado de Autores</h2>
 
-<!-- NAV de botones para filtrar (opcional)
-<div class="d-flex justify-content-center mb-4">
-    <a href="{% url 'app_autores:autores_activos' %}" class="btn btn-success mx-2">Ver Activos</a>
-    <a href="{% url 'app_autores:autores_inactivos' %}" class="btn btn-danger mx-2">Ver Inactivos</a>
-</div>
--->
-
-<div class="d-flex justify-content-center mt-3 py-3">
-    <a href="{% url 'app_autores:crear_autor' %}" class="btn btn-success">
-        Nuevo Autor
-    </a>
-</div>
-
-<!-- Tabla de autores con imagen -->
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered align-middle shadow-sm">
-            <thead class="table-light text-center">
-                <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for autor in autores %}
-                <tr>
-                    <td class="text-center" style="width: 120px;">
-                        <img src="{% static 'img/autores/' %}{{ autor.slug }}.png"
-                             alt="Foto de {{ autor.nombre }}"
-                             class="img-fluid rounded-circle shadow"
-                             style="width: 80px; height: 80px; object-fit: cover;">
-                    </td>
-                    <td>{{ autor.nombre }}</td>
-                    <td class="text-center">
-                        {% if autor.activo %}
-                            <img src="{% static 'img/comprobado.png' %}" alt="Activo" width="28px">
-                        {% else %}
-                            <img src="{% static 'img/cancelar.png' %}" alt="Inactivo" width="28px">
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'app_autores:detalle_autor' autor.id %}" class="btn btn-primary btn-sm">Ver Detalles</a>
-                        <a href="{% url 'app_autores:frases_autor' autor.id %}" class="btn btn-secondary btn-sm">Ver Frases</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center">No hay autores para mostrar.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+{% if user.is_authenticated %}
+    <h2 class="mb-4 text-center">Listado de Autores</h2>
+    
+    <!-- Botón para agregar nuevo autor -->
+    <div class="d-flex justify-content-center mt-3 py-3">
+        <a href="{% url 'app_autores:crear_autor' %}" class="btn btn-success">
+            Nuevo Autor
+        </a>
     </div>
-</div>
+
+    <!-- Tabla de autores con imagen, nombre, estado y acciones -->
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle shadow-sm">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for autor in autores %}
+                    <tr>
+                        <td class="text-center" style="width: 120px;">
+                            <img src="{% static 'img/autores/' %}{{ autor.slug }}.png"
+                                 alt="Foto de {{ autor.nombre }}"
+                                 class="img-fluid rounded-circle shadow"
+                                 style="width: 80px; height: 80px; object-fit: cover;">
+                        </td>
+                        <td>{{ autor.nombre }}</td>
+                        <td class="text-center">
+                            {% if autor.activo %}
+                                <img src="{% static 'img/comprobado.png' %}" alt="Activo" width="28px">
+                            {% else %}
+                                <img src="{% static 'img/cancelar.png' %}" alt="Inactivo" width="28px">
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <a href="{% url 'app_autores:detalle_autor' autor.id %}" class="btn btn-primary btn-sm">Ver Detalles</a>
+                            <a href="{% url 'app_autores:frases_autor' autor.id %}" class="btn btn-secondary btn-sm">Ver Frases</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No hay autores para mostrar.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <h2 class="mb-4 text-center">Autores</h2>
+    
+    <!-- Vista para usuarios no autenticados: sólo se muestra la imagen y el nombre en formato card -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for autor in autores %}
+        <div class="col">
+            <div class="card h-100 shadow text-center">
+                <img src="{% static 'img/autores/' %}{{ autor.slug }}.png"
+                     alt="Foto de {{ autor.nombre }}"
+                     class="img-fluid rounded-circle shadow mx-auto mt-4 d-block"
+                     style="width: 80px; height: 80px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ autor.nombre }}</h5>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-info text-center">No hay autores para mostrar.</div>
+        {% endfor %}
+    </div>
+{% endif %}
 {% endblock %}
