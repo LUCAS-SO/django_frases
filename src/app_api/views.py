@@ -1,18 +1,25 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import AutorSerializer, FraseSerializer
 from autores.models import Autor, Frase
 
 # Create your views here.
 
-class AutorListAPIView(ListAPIView):
+class AutorListCreateAPIView(ListCreateAPIView):
     queryset = Autor.objects.all()
     serializer_class = AutorSerializer
 
-class AutorRetrieveAPIView(RetrieveAPIView):
+
+class AutorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Autor.objects.all()
     serializer_class = AutorSerializer
 
-class FraseListAPIView(ListAPIView):
+
+class FraseListCreateAPIView(ListCreateAPIView):
+    queryset = Frase.objects.all()
+    serializer_class = FraseSerializer
+
+
+class FraseRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Frase.objects.all()
     serializer_class = FraseSerializer

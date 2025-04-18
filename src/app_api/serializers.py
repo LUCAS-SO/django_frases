@@ -4,7 +4,7 @@ from autores.models import Autor, Frase
 class AutorSerializer(ModelSerializer):
     class Meta:
         model = Autor
-        fields = ['nombre', 'nacionalidad', 'fecha_nacimiento', 'fecha_fallecimiento', 'activo', 'creado', 'modificado']
+        fields = ['pk', 'nombre', 'nacionalidad', 'fecha_nacimiento', 'fecha_fallecimiento', 'activo', 'creado', 'modificado']
         # fields = '__all__'
 
 class FraseSerializer(ModelSerializer):
