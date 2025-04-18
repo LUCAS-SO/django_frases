@@ -1,64 +1,105 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>{% block title %}App de Frases{% endblock %}</title>
     <!-- CSS de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- CSS personalizado para estilo minimalista -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body class="bg-light text-dark">
-
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body class="bg-light text-dark">
     <!-- Navbar en estilo oscuro con texto blanco -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'app_autores:base' %}">
-                🏠
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-                    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Aquí se distribuyen las opciones en dos secciones: enlaces principales y botones de autenticación -->
-            <div class="collapse navbar-collapse justify-content-between" id="navbarMenu">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app_autores:autores' %}">Autores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app_autores:frases' %}">Frases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app_autores:presentacion' %}">Presentación</a>
-                    </li>
-                </ul>
-                <!-- Botones de Autenticación a la derecha -->
-                <div class="d-flex">
-                    {% if user.is_authenticated %}
-                        <!-- Formulario para logout -->
-                        <form method="post" action="{% url 'app_autores:logout' %}">
-                            {% csrf_token %}
-                            <input type="submit" value="Cerrar Sesión" class="btn btn-outline-light">
-                        </form>
-                    {% else %}
-                        <!-- Enlaces para usuarios no autenticados -->
-                        <a href="{% url 'app_autores:login' %}" class="btn btn-outline-light me-2">Iniciar Sesión</a>
-                        <!-- <a href="#" class="btn btn-light">Crear Usuario</a> -->
-                    {% endif %}
-                </div>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'app_autores:base' %}"> 🏠 </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu"
+          aria-controls="navbarMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Aquí se distribuyen las opciones en dos secciones: enlaces principales y botones de autenticación -->
+        <div
+          class="collapse navbar-collapse justify-content-between"
+          id="navbarMenu"
+        >
+          <ul class="navbar-nav">
+            <!-- Dropdown App_Frases -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="appFrasesDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                App_Frases
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="appFrasesDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'app_autores:autores' %}"
+                    >Autores</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'app_autores:frases' %}"
+                    >Frases</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- Opción aparte para Presentación -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'app_autores:presentacion' %}"
+                >Presentación</a
+              >
+            </li>
+          </ul>
+
+          <!-- Botones de Autenticación a la derecha -->
+          <div class="d-flex">
+            {% if user.is_authenticated %}
+            <!-- Formulario para logout -->
+            <form method="post" action="{% url 'app_autores:logout' %}">
+              {% csrf_token %}
+              <input
+                type="submit"
+                value="Cerrar Sesión"
+                class="btn btn-outline-light"
+              />
+            </form>
+            {% else %}
+            <!-- Enlaces para usuarios no autenticados -->
+            <a
+              href="{% url 'app_autores:login' %}"
+              class="btn btn-outline-light me-2"
+              >Iniciar Sesión</a
+            >
+            <!-- <a href="#" class="btn btn-light">Crear Usuario</a> -->
+            {% endif %}
+          </div>
         </div>
+      </div>
     </nav>
 
     <!-- Contenedor principal para el contenido -->
-    <div class="container mt-4">
-        {% block content %}
-        {% endblock %}
-    </div>
+    <div class="container mt-4">{% block content %} {% endblock %}</div>
 
     <!-- JS de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>
