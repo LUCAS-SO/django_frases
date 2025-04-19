@@ -57,6 +57,6 @@ Cuando avanzamos en conceptos de Django retome el uso de la IA nuevamente para a
 ### 🙏 Agradecimientos
 
 - **Mentor**: Flavio Espeche Nieva
-- **Equipo Alkemy**
+- **Alkemy**
 - **AIF** Agencia de Innovación TDF
 - **CFI** Consejo Federal de Inversiones
