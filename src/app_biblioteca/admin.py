@@ -6,7 +6,7 @@ from .models import Libro, Comic, Prestamo
 @admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
     # list_display: Define las columnas visibles en la lista del admin.
-    list_display = ('titulo', 'autor', 'anio_publicacion', 'disponible')
+    list_display = ('titulo', 'autor', 'anio_publicacion', 'disponible', 'imagen')
     # search_fields: Permite buscar por título, autor e ISBN (solo para libros).
     search_fields = ('titulo', 'autor', 'isbn')
     # list_filter: Agrega filtros en la barra lateral para facilitar la búsqueda.
@@ -14,7 +14,7 @@ class LibroAdmin(admin.ModelAdmin):
 
 @admin.register(Comic)
 class ComicAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'autor', 'numero', 'anio_publicacion', 'disponible')
+    list_display = ('titulo', 'autor', 'numero', 'anio_publicacion', 'disponible', 'imagen')
     search_fields = ('titulo', 'autor')
     list_filter = ('disponible', 'anio_publicacion')
 

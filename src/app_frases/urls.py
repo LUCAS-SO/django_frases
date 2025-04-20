@@ -21,6 +21,10 @@ from django.urls import path, include
 from rest_framework import routers
 from app_api.views import FraseViewSet, AutorViewSet
 
+# URLS Media
+from django.conf import settings
+from django.conf.urls.static import static
+
 router = routers.SimpleRouter()
 router.register(r'api_frases', FraseViewSet)
 router.register(r'api_autores', AutorViewSet)
@@ -31,6 +35,6 @@ urlpatterns = [
     path('', include('autores.urls', namespace='autores')),
     path('biblioteca/', include('app_biblioteca.urls', namespace='app_biblioteca')),
     # path('api/', include('app_api.urls', namespace='app_api')),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += router.urls

@@ -10,6 +10,7 @@ class Libro(models.Model):
     anio_publicacion = models.IntegerField()
     isbn = models.CharField(max_length=13, unique=True)
     disponible = models.BooleanField(default=True)
+    imagen = models.ImageField(upload_to="libros/", null=True, blank=True)
 
     def __str__(self):
         return self.titulo
@@ -21,6 +22,7 @@ class Comic(models.Model):
     anio_publicacion = models.IntegerField()
     numero = models.IntegerField()
     disponible = models.BooleanField(default=True)
+    imagen = models.ImageField(upload_to="comics/", null=True, blank=True)
 
     def __str__(self):
         return f"{self.titulo} - #{self.numero}"
