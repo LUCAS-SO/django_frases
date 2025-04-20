@@ -1,0 +1,31 @@
+{% extends "app_autores/frases.html" %}
+
+{% block confirmacion %}
+<!-- Modal de confirmación -->
+<div class="modal fade show" style="display: block;" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-modal="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- Encabezado del Modal -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmar eliminación</h5>
+        <a href="{% url 'app_autores:frases' %}" class="btn-close" aria-label="Close"></a>
+      </div>
+      <!-- Cuerpo del Modal -->
+      <div class="modal-body">
+        <p>¿Desea borrar la frase?</p>
+        <form method="post">
+          {% csrf_token %}
+          <!-- No hace falta {{ form.as_p }} en DeleteView -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">Confirmar</button>
+            <a href="{% url 'app_autores:frases' %}" class="btn btn-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fondo oscuro -->
+<div class="modal-backdrop fade show"></div>
+{% endblock confirmacion %}

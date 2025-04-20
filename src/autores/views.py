@@ -108,6 +108,8 @@ class AutorDeleteView(DeleteView):
     success_url = reverse_lazy('app_autores:autores')
 
 
+# Views de Frases
+
 @login_not_required
 def frases_aleatorias(request):
     frases = list(Frase.objects.select_related('autor'))
@@ -167,3 +169,15 @@ class FraseAutorCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['autor'] = Autor.objects.get(pk=self.kwargs['autor_id'])
         return context
+
+
+class FraseUpdateView(UpdateView):
+    model = Frase
+    fields = '__all__'
+    template_name = 'crear.html'
+    success_url = reverse_lazy('app_autores:frases')
+
+class FraseDeleteView(DeleteView):
+    model = Frase
+    template_name = 'app_autores/borrar_frase.html'
+    success_url = reverse_lazy('app_autores:frases')

@@ -29,6 +29,7 @@ router.register(r'api_autores', AutorViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('autores.urls', namespace='autores')),
+    path('biblioteca/', include('app_biblioteca.urls', namespace='app_biblioteca')),
     # path('api/', include('app_api.urls', namespace='app_api')),
 ]
 

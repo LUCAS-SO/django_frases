@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #Propia
     'autores',
     'app_api',
+    'app_biblioteca',
     #Terceros
     'rest_framework',
 ]

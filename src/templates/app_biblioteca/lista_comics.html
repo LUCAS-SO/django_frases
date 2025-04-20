@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+  <!-- Encabezado minimalista -->
+  <div class="mb-5">
+    <h1 class="display-6 fw-light mb-3">
+      <i class="fas fa-bookmark text-primary me-2"></i>
+      Cómics Disponibles
+    </h1>
+    <p class="text-muted mb-4">Explora nuestra colección de cómics</p>
+    
+    <!-- Buscador minimalista -->
+    <form method="get" class="mb-4">
+      <div class="input-group" style="max-width: 400px;">
+        <input type="text" name="q" class="form-control form-control-lg" 
+               placeholder="Buscar cómic..." value="{{ query }}">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Listado de cómics -->
+  {% if comics %}
+  <div class="comics-list">
+    {% for comic in comics %}
+    <div class="comic-item mb-4 p-3 bg-white rounded shadow-sm">
+      <div class="row align-items-center">
+        <!-- Portada -->
+        <div class="col-md-2 text-center">
+          {% if comic.portada %}
+            <img src="{{ comic.portada.url }}" alt="{{ comic.titulo }}" class="img-fluid rounded" style="max-height: 150px;">
+          {% else %}
+            <div class="bg-light p-4 rounded">
+              <i class="fas fa-book-open fa-3x text-secondary"></i>
+            </div>
+          {% endif %}
+        </div>
+        
+        <!-- Detalles -->
+        <div class="col-md-8">
+          <h3 class="h5 mb-1">{{ comic.titulo }} <small class="text-muted">#{{ comic.numero }}</small></h3>
+          <p class="text-muted mb-2">
+            <i class="fas fa-user-edit me-1"></i> {{ comic.autor }} | 
+            <i class="fas fa-calendar-alt me-1"></i> {{ comic.fecha_publicacion|date:"M Y" }} | 
+            <i class="fas fa-building me-1"></i> {{ comic.editorial }}
+          </p>
+          <span class="badge bg-success bg-opacity-10 text-success">
+            <i class="fas fa-check-circle me-1"></i> Disponible
+          </span>
+        </div>
+        
+        <!-- Botón de prestar -->
+        <div class="col-md-2 text-end">
+          <a href="{% url 'app_biblioteca:prestar' 'comic' comic.id %}" class="btn btn-primary px-4">
+            <i class="fas fa-hand-holding me-2"></i>Prestar
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center py-5 my-5 bg-light rounded">
+    <i class="fas fa-book-dead fa-4x text-secondary mb-4"></i>
+    <h3 class="h4 mb-2">No hay cómics disponibles</h3>
+    <p class="text-muted">Actualmente todos nuestros cómics están prestados</p>
+  </div>
+  {% endif %}
+
+  <!-- Volver -->
+  <div class="mt-5">
+    <a href="{% url 'app_autores:base' %}" class="text-decoration-none">
+      <i class="fas fa-arrow-left me-2"></i>Volver a la página principal
+    </a>
+  </div>
+</div>
+{% endblock %}

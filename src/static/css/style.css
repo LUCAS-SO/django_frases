@@ -37,3 +37,16 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #004494;
     border-color: #004494;
 }
+
+/* Hover azul para App_Frases */
+.bg-frases-hover:hover {
+    background-color: #0d6efd; /* Bootstrap primary azul */
+    border-radius: 0.25rem;
+  }
+  
+  /* Hover amarillo para App_Biblioteca */
+  .bg-biblioteca-hover:hover {
+    background-color: #ffc107; /* Bootstrap warning amarillo */
+    color: #212529 !important;
+    border-radius: 0.25rem;
+  }

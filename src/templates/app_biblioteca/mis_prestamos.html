@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+  <!-- Encabezado profesional -->
+  <div class="d-flex justify-content-between align-items-end mb-4 border-bottom pb-3">
+    <div>
+      <h1 class="h3 fw-bold mb-2">
+        <i class="fas fa-history text-primary me-2"></i>
+        Historial de Préstamos
+      </h1>
+      <p class="text-muted mb-0">Registro completo de tus transacciones bibliotecarias</p>
+    </div>
+    <div>
+      <a href="{% url 'app_autores:base' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Volver al inicio
+      </a>
+    </div>
+  </div>
+
+  {% if prestamos %}
+  <!-- Tabla profesional -->
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4">Ítem</th>
+              <th>Tipo</th>
+              <th>Fecha Préstamo</th>
+              <th>Estado</th>
+              <th class="text-end pe-4">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for prestamo in prestamos %}
+            <tr>
+              <!-- Ítem -->
+              <td class="ps-4 align-middle">
+                <div class="d-flex align-items-center">
+                  {% if prestamo.libro %}
+                  <i class="fas fa-book fa-lg text-primary me-3"></i>
+                  <div>
+                    <strong>{{ prestamo.libro.titulo }}</strong>
+                    <div class="text-muted small">{{ prestamo.libro.autor }}</div>
+                  </div>
+                  {% elif prestamo.comic %}
+                  <i class="fas fa-bookmark fa-lg text-info me-3"></i>
+                  <div>
+                    <strong>{{ prestamo.comic.titulo }}</strong>
+                    <div class="text-muted small">#{{ prestamo.comic.numero }} | {{ prestamo.comic.autor }}</div>
+                  </div>
+                  {% endif %}
+                </div>
+              </td>
+              
+              <!-- Tipo -->
+              <td class="align-middle">
+                <span class="badge {% if prestamo.libro %}bg-primary bg-opacity-10 text-primary{% else %}bg-info bg-opacity-10 text-info{% endif %}">
+                  {{ prestamo.libro|yesno:"Libro,Cómic" }}
+                </span>
+              </td>
+              
+              <!-- Fecha -->
+              <td class="align-middle">
+                {{ prestamo.fecha_prestamo|date:"d/m/Y" }}
+              </td>
+              
+              <!-- Estado -->
+              <td class="align-middle">
+                {% if prestamo.devuelto %}
+                <span class="badge bg-success bg-opacity-10 text-success">
+                  <i class="fas fa-check-circle me-1"></i>
+                  Devuelto el {{ prestamo.fecha_devolucion|date:"d/m/Y" }}
+                </span>
+                {% else %}
+                <span class="badge bg-warning bg-opacity-10 text-warning">
+                  <i class="fas fa-clock me-1"></i>
+                  Pendiente
+                </span>
+                {% endif %}
+              </td>
+              
+              <!-- Acción -->
+              <td class="text-end pe-4 align-middle">
+                {% if not prestamo.devuelto %}
+                <a href="{% url 'app_biblioteca:devolver' prestamo.id %}" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-undo-alt me-1"></i>Devolver
+                </a>
+                {% else %}
+                <span class="text-muted small">Completado</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <!-- Estado vacío profesional -->
+  <div class="text-center py-5 my-5">
+    <div class="mb-4">
+      <i class="fas fa-book-open fa-4x text-muted opacity-25"></i>
+    </div>
+    <h3 class="h4 mb-3">No hay préstamos registrados</h3>
+    <p class="text-muted mb-4">No se encontraron préstamos asociados a tu cuenta</p>
+    <div class="d-flex justify-content-center gap-3">
+      <a href="{% url 'app_biblioteca:lista_libros' %}" class="btn btn-primary">
+        <i class="fas fa-book me-2"></i>Explorar Libros
+      </a>
+      <a href="{% url 'app_biblioteca:lista_comics' %}" class="btn btn-outline-primary">
+        <i class="fas fa-bookmark me-2"></i>Explorar Cómics
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Paginación -->
+  {% if prestamos.has_other_pages %}
+  <nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if prestamos.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ prestamos.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+      
+      {% for i in prestamos.paginator.page_range %}
+      <li class="page-item {% if prestamos.number == i %}active{% endif %}">
+        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+      </li>
+      {% endfor %}
+      
+      {% if prestamos.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ prestamos.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}
