@@ -50,8 +50,11 @@
 ###
 
 <p align="left">
-Durante el proceso de aprendizaje experimente con IAs, en principio con consultas simples para repaso del lenguaje en cuestión. A medida que fuimos avanzando comencé a darle uso de forma gradual. Pudiendo experimentar con la creación de modelos y funcionalidades por ejemplo. Creando proyectos chicos como un gestor de biblioteca, pidiéndole a ChatGPT que me ayude en el planteo en los modelos y vistas. Por otro lado use DeepSeek para los templates pidiendole que use Tailwind y cuando experimente lo fácil que se volvía y que avanzaba en conceptos que aun no habíamos trabajado lo deje de lado para no marear mi proceso de aprendizaje y a la vez no mal acostumbrarme a la dependencia que generan estas herramientas.
-Cuando avanzamos en conceptos de Django retome el uso de la IA nuevamente para ahorrar tiempo en la creación del proyecto, para encontrar alternativas al uso de las imágenes y por sobre todo para darle los estilos a los templates. En esta ultima etapa y en la gran mayoría experimente sobre todo con ChatGPT, también use DeepSeek para trabajar las plantillas de un proyecto simple y realizar consultas generales. Cada tanto use Gemini y Copilot únicamente para consultas generales.
+Durante mi proceso de aprendizaje comencé a experimentar con herramientas de IA, inicialmente con consultas simples para repasar conceptos del lenguaje(py). A medida que fui avanzando, empecé a incorporar su uso de manera más constante. Esto me permitió explorar la creación de modelos y funcionalidades, desarrollando pequeños proyectos como un gestor de biblioteca. En ese caso, utilicé ChatGPT para que me ayudara con el planteamiento de los modelos y vistas.
+
+Por otro lado, también probé DeepSeek para la generación de templates usando Tailwind. Aunque descubrí lo sencillo y ágil que podía ser el desarrollo con esta herramienta, decidí dejarla de lado temporalmente para no interferir con mi proceso de aprendizaje ni generar una dependencia excesiva.
+
+Conforme profundicé en los conceptos de Django, retomé el uso de IA, especialmente ChatGPT, para optimizar tiempos en la construcción de proyectos, encontrar alternativas para el manejo de imágenes, y aplicar estilos a los templates. En esta última etapa, trabajé principalmente con ChatGPT, aunque también recurrí a DeepSeek para generar templates y resolver dudas generales. De forma ocasional, utilicé Gemini y Copilot, para consultas puntuales.
 </p>
 
 ### 🙏 Agradecimientos
